@@ -16,7 +16,11 @@ public:
 	void call_python(boost::python::object method)
 	{
 		using namespace boost::python;
-		method();
+		// call the passed method
+		object py_result = method();
+        double result = boost::python::extract<double>(py_result);
+
+        std::cout << "Python method returned " << result << std::endl;
 
 		// get an object defined in this lib
 		object module = import("testlib");
